@@ -93,7 +93,7 @@ function Transpiler:cleanup()
 end
 
 
-function Transpiler:push( rpath )
+function Transpiler:push()
     local own = protected( self );
     local compilers = own.compilers;
     local stack = own.stack;
