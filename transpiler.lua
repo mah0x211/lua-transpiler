@@ -25,7 +25,8 @@
   Created by Masatoshi Teruya on 15/09/11.
 
 --]]
-
+-- modules
+local tblconcat = table.concat;
 -- constants
 local EINVAL = 'compilers must be table';
 local EINVALKEY = 'key %q of compilers must be started with ".".';
@@ -145,14 +146,14 @@ end
 
 function Transpiler:link( stat )
     local own = protected( self );
-    local compiler = own.compilers[stat.ext];
-    local err;
+    local ctx = own.stack[#own.stack];
+    local errtbl = {};
     
-    if compiler then
-        err = compiler:link( own.stack[#own.stack][stat.ext], stat );
+    for ext, compiler in pairs( own.compilers ) do
+        errtbl[#errtbl + 1] = compiler:link( ctx[ext], stat );
     end
     
-    return err;
+    return #errtbl > 0 and tblconcat( errtbl, '\n' );
 end
 
 
