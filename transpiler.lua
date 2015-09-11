@@ -78,7 +78,7 @@ function Transpiler:setup()
     local ctx = {};
     
     -- setup and get initial context
-    for ext, compiler in pairs( compilers ) do
+    for ext, compiler in pairs( own.compilers ) do
         ctx[ext] = compiler:setup();
     end
     own.stack = { ctx };
