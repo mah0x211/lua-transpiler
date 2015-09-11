@@ -51,7 +51,7 @@ function Transpiler:init( compilers )
     own.compilers = {};
     for ext, compiler in pairs( compilers ) do
         if not ext:find('^%.') then
-            error( EINVALIDKEY:format( k ) );
+            error( EINVALKEY:format( ext ) );
         end
         
         -- check required methods
@@ -112,9 +112,9 @@ end
 function Transpiler:pop()
     local own = protected( self );
     local stack = own.stack;
-    local poppabale = #stack > 0;
+    local poppable = #stack > 0;
     
-    if poppabale then
+    if poppable then
         local compilers = own.compilers;
         local ctx = stack[#stack];
         
