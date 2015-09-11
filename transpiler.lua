@@ -32,6 +32,9 @@ local EINVAL = 'compilers must be table';
 local EINVALKEY = 'key %q of compilers must be started with ".".';
 local EINVALVAL = 'compiler.%s must be function';
 
+-- private function
+local function DO_NOTHING()end
+
 -- class
 local Transpiler = require('halo').class.Transpiler;
 
@@ -58,13 +61,18 @@ function Transpiler:init( compilers )
         for k, t in pairs({
             setup = 'function',
             push = 'function',
-            pop = 'function',
             compile = 'function',
             link = 'function',
         }) do
             if type( compiler[k] ) ~= t then
                 error( EINVALVAL:format( k ) );
             end
+        end
+        -- pop method is optional
+        if compiler.pop == nil then
+            compiler.pop = DO_NOTHING;
+        elseif type( compiler.pop ) ~= 'function' then
+            error( EINVALVAL:format( 'pop' ) );
         end
         
         own.compilers[ext] = compiler;
