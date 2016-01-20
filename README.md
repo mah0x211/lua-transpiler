@@ -8,6 +8,13 @@ file-extension based trans-compiler task abstraction module.
 - halo: https://github.com/mah0x211/lua-halo
 
 
+## Installation
+
+```
+luarocks install transpiler --from=http://mah0x211.github.io/rocks/
+```
+
+
 ## Create a Transpiler object
 
 ### t = Transpiler.new( compilers:table )
