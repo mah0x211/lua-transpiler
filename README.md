@@ -18,7 +18,7 @@ file-extension based trans-compiler task abstraction module.
 
 ```lua
 local Transpiler = require('transpiler');
-local t = new Transpiler({
+local t = Transpiler.new({
 	['.txt'] = TxtCompiler
 });
 ```
